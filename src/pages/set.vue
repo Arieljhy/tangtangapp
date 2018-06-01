@@ -3,10 +3,6 @@
 		 <f7-navbar title="设置" back-link="返回" theme="white" sliding></f7-navbar>
 
 		        <f7-list>
-		            <f7-list-item title="更改手机号" link="" ></f7-list-item>
-		        </f7-list>
-		        
-		        <f7-list>
 		            <f7-list-item title="更改密码" link="" ></f7-list-item>
 		        </f7-list> 
 		       

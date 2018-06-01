@@ -1,8 +1,9 @@
 //引入axios
 import axios from 'axios'
 // axios配置
-axios.defaults.timeout = 3000
-axios.defaults.baseURL = 'http://www.dnurse.com'
+axios.defaults.timeout = 30000
+axios.defaults.baseURL = 'http://159.226.172.7'
+axios.defaults.withCredentials = true
 // http request 拦截器
 axios.interceptors.request.use(
   config => {
