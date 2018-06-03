@@ -16,8 +16,10 @@
       <f7-grid no-gutter>
 		  <f7-col width="50" v-for="(item, index) in dataList" :key="index" @click.native="goDetail(item.id)">
 		  	<div>
-		  		<img :src="item.img" alt=""    style="width: 100%; height: 100%;"/>
-		  		<span style="color: red;">{{item.price}}</span>
+		  		<img :src="item.proPic" alt=""    style="width: 100%; height: 100%;"/>
+		  		<span class="itemTitle">名称:{{item.name}}</span>
+		  		<span class="itemTitle">价格：{{item.price}}</span>
+		  		<span class="itemTitle">简介：{{item.proTitle}}</span>
 		  	</div>
 		  </f7-col>
 		</f7-grid>
@@ -68,26 +70,40 @@
   }
 </style>
 
+<style lang="less" scoped>
+.chanpin-view {
+  .itemTitle {
+    color: black;
+    display: inline-block;
+    height: 0.2rem;
+    line-height: 0.2rem;
+    text-align: left;
+    width: 100%;
+    font-size: 0.2rem;
+    padding-left: 10px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+}
+</style>
+
 <script>
 import {mapState} from 'vuex'
+import {requestAPI} from '../network/index.js'
 export default {
 	data () {
 		return {
-			dataList: [
-				{
-					price: '20元',
-					img: 'https://image.dnurse.com/shop/U1521618874323.jpg',
-					id: '1'
-				}
-			]
+			dataList: []
 		}
 	},
   computed: {
     ...mapState({
       timeline: state => state.timeline
     })
-    },
+  },
   mounted() {
+    this.getList()
     this.$nextTick(_ => {
       this.$f7.swiper('.swiper-container', {
         pagination:'.swiper-pagination',
@@ -115,18 +131,31 @@ export default {
 			    }
     		})
     },
-      onSearch (query, found) {
-        console.log('search', query)
-      },
-      onClear (event) {
-        console.log('clear')
-      },
-      onEnable (event) {
-        console.log('enable')
-      },
-      onDisable (event) {
-        console.log('disable')
-      }
+    getList () {
+      requestAPI.getProductList('1').then(data => {
+        if (data) {
+          let dataList = data.content
+          if (dataList.length > 0) {
+            for (let i = 0; i < dataList.length; i++) {
+              dataList[i].proPic = 'https://image.dnurse.com/shop/U1521618874323.jpg'
+            }
+          }
+          this.dataList = dataList
+        }
+      })
+    },
+    onSearch (query, found) {
+      console.log('search', query)
+    },
+    onClear (event) {
+      console.log('clear')
+    },
+    onEnable (event) {
+      console.log('enable')
+    },
+    onDisable (event) {
+      console.log('disable')
+    }
   },
   components: {
   } 

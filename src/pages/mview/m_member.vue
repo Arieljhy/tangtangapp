@@ -26,19 +26,18 @@
 		}
 	},
 	mounted(){
-		this.$nextTick(() => {
-				this.nickname = this.$f7.mainView.activePage.context.nickname
-		})
+		// this.$nextTick(() => {
+		// 		this.nickname = this.$f7.mainView.activePage.context.nickname
+		// })
 	},
 	 methods: {
 	 	tologin() {
-    	this.$f7.mainView.router.load(
-    		{
-    			url: '/login/'
-    		})
-    	}
+			this.$f7.mainView.router.load(
+				{
+					url: '/login/'
+				})
+			}
 	 	}
-	 
 	 }
 </script>
 

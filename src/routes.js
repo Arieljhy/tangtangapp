@@ -60,6 +60,10 @@ export default [
     component: require('./pages/regist.vue')
   },
   {
+    path: '/changePwd/',
+    component: require('./pages/changePwd.vue')
+  },
+  {
     path: '/login/mlogin/',
     component: require('./pages/mview/mlogin.vue')
   },

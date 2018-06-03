@@ -12,20 +12,20 @@
          <f7-list form style="margin-top: 10px;">       	
             <f7-list-item>
                 <f7-label>用户名</f7-label>
-                <f7-input type="text" placeholder="name" v-model="userInfo.userName"></f7-input>
+                <f7-input type="text" placeholder="用户名" v-model="userInfo.userName"></f7-input>
             </f7-list-item>
             
             <f7-list-item>
                 <f7-label>密码</f7-label>
-                <f7-input type="password" placeholder="password" v-model="userInfo.pwd"></f7-input>
+                <f7-input type="password" placeholder="密码" v-model="userInfo.pwd"></f7-input>
             </f7-list-item>
             
             <f7-button fill  style="background-color: #e21945; margin-top: 20px;" @click="login">登录</f7-button>
 		 </f7-list>
 		 
-		 <f7-link href="/login/mlogin/" style="color: #e21945; float: left;">
+		 <!-- <f7-link href="/login/mlogin/" style="color: #e21945; float: left;">
 		 	<span>管理员登录>></span>
-		 </f7-link>
+		 </f7-link> -->
 		 <f7-link href="/regist/" style="color: #e21945; float: right; margin-right: 15px;">
 		 	<span>免费注册</span>
 		 </f7-link>
@@ -57,17 +57,26 @@ export default {
     methods: {
       // 登录函数
       login () {
-		if (!!(this.userInfo.userName) && !!(this.userInfo.pwd)) {
-			let params = Object.assign({}, this.userInfo)
-			loginAPI.login(params).then(data => {
-				this.$f7.mainView.router.load({url: '/umain/'})
-			}, () => {
-				this.$f7.alert('登录失败！')
-			})
-		} else {
-			this.$f7.alert('请完善登录信息！')
-		}
-      },
+        if (!!(this.userInfo.userName) && !!(this.userInfo.pwd)) {
+          let params = Object.assign({}, this.userInfo)
+          loginAPI.login(params).then(data => {
+            if (data) {
+              sessionStorage.setItem('userInfo', JSON.stringify(data))
+              if (data.type === 'admin') {
+                this.$f7.mainView.router.load({url: '/mmain/'})
+              } else {
+               this.$f7.mainView.router.load({url: '/umain/'})
+              }
+            } else {
+              this.$f7.alert('登录失败！请核对用户名密码是否正确')
+            }
+          }, () => {
+            this.$f7.alert('登录失败！')
+          })
+        } else {
+          this.$f7.alert('请完善登录信息！')
+        }
+      }
     },
     created () {
     },

@@ -18,7 +18,7 @@
 		  <f7-list-group  class="goods-group">
 		    <f7-list-item title="医学前沿" group-title></f7-list-item>
           
-			          <li class="item-content goods-item" v-for="item in dataLi. st" :key="item.id">
+			          <li class="item-content goods-item" v-for="item in dataList" :key="item.id">
 				              <div class="item-media">
 				                <img class="post-img" :src="item.pic" alt="logo">
 				              </div>
